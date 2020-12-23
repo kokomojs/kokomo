@@ -4,8 +4,10 @@
   "workspaces": [
     "packages/*"
   ],
-  "description": "a web framework for Node.js",
+  "description": "A Node.js Web Framework based on TypeScript",
   "keywords": [
+    "typescript",
+    "Node.js",
     "web framework"
   ],
   "author": "artoriaschan",
