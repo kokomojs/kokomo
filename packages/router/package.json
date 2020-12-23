@@ -1,0 +1,31 @@
+{
+  "name": "@kokomo/router",
+  "version": "0.0.1",
+  "description": "> TODO: description",
+  "author": "artoriaschan <544396118@qq.com>",
+  "homepage": "",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "build:w": "tsc -w --inlineSourceMap",
+    "lint": "prettier --write --parser typescripts \"src/**/*.ts\"",
+    "test": "jest --clearCache && jest --runInBand --forceExit --coverage"
+  },
+  "dependencies": {
+    "debug": "^4.3.1",
+    "find-my-way": "^3.0.5",
+    "methods": "^1.1.2"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.5",
+    "@types/methods": "^1.1.1"
+  }
+}
