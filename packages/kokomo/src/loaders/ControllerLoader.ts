@@ -1,10 +1,11 @@
 import * as fs from "fs";
 import * as path from "path";
-
+import debugCreater from "debug";
 import { inject, loadDir } from "../utils";
 import { ControllerStore } from "../store";
 import BaseController from "../core/BaseController";
 
+const debug = debugCreater("kokomo");
 export default class ControllerLoader {
   static loadController(filePath: string): void {
     const fileInfo = path.parse(filePath);
@@ -13,6 +14,7 @@ export default class ControllerLoader {
       const clazz = inject.default(filePath);
 
       if (clazz && clazz.prototype && clazz.prototype instanceof BaseController) {
+        debug(`[Controller] ======> load ${clazzName}.controller.ts`);
         ControllerStore.setController(clazz, null, { clazzName });
       }
     }

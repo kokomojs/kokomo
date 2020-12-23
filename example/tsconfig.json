@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "module": "commonjs",
     "target": "esnext",
     "moduleResolution": "node",
     "strict": true,
@@ -9,12 +10,11 @@
     "noUnusedLocals": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "outDir": "./lib",
-    "module": "commonjs",
     "types": [],
     "lib": ["ESNext"]
   },
-  "include": ["./src"],
+  "include": ["src"],
   "exclude": ["node_modules"]
 }

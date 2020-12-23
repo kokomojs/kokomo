@@ -1,3 +1,3 @@
-import { isString, isObject } from "lodash";
+import { isString, isObject, isUndefined } from "lodash";
 
-export { isString, isObject };
+export { isString, isObject, isUndefined };

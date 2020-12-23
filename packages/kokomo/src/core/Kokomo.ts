@@ -6,6 +6,7 @@ import { createRouter } from "@kokomo/router";
 
 import { merge, mixin } from "../utils";
 import { ControllerStore, packageInfo } from "../store";
+import ServiceLoader from "../loaders/ServiceLoader";
 import ControllerLoader from "../loaders/ControllerLoader";
 
 import { Context } from "../extends/Context";
@@ -41,9 +42,6 @@ class Kokomo {
     this.loadController();
   }
 
-  private loadController() {
-    ControllerLoader.loadControllerDir(path.resolve(this.options.root, "controllers"));
-  }
   private loadAspect() {
     // TODO
   }
@@ -55,6 +53,10 @@ class Kokomo {
   }
   private loadService() {
     // TODO
+    ServiceLoader.loadServiceDir(path.resolve(this.options.root, "services"));
+  }
+  private loadController() {
+    ControllerLoader.loadControllerDir(path.resolve(this.options.root, "controllers"));
   }
 
   get context(): KokomoContext {

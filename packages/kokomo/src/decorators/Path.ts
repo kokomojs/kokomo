@@ -1,10 +1,6 @@
-import debugCreater from "debug";
-
 import { ControllerStore } from "../store";
 import { isString, isObject } from "../utils";
 import { RequestMethod } from "../config";
-const debugPath = debugCreater("@Path");
-const debug = debugCreater("kokomo");
 
 declare interface PathParamterObject {
   value: string | string[];
@@ -25,10 +21,6 @@ declare interface PathParamterObject {
  */
 export function Path(...args: string[] | PathParamterObject[]) {
   return (...props: any[]) => {
-    debug("@Path args:", args);
-    debug("@Path props:", props);
-    debugPath(props);
-
     // 类
     if (props.length === 1) {
       if (args.length > 1) {
@@ -87,8 +79,6 @@ export function Path(...args: string[] | PathParamterObject[]) {
  */
 export function GET(...args: string[]) {
   return (...props: any[]) => {
-    debug("@GET args:", args);
-    debug("@GET props:", props);
     // 类
     if (props.length === 1) throw new Error("@GET can only be used on class methods!");
     // 类方法
@@ -122,7 +112,6 @@ export function GET(...args: string[]) {
  */
 export function POST(...args: string[]) {
   return (...props: any[]) => {
-    debug("@POST props:", props);
     // 类
     if (props.length === 1) throw new Error("@POST can only be used on class methods!");
     // 类方法

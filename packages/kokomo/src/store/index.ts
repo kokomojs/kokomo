@@ -1,4 +1,5 @@
 import ControllerStore from "./controller";
+import ServiceStore from "./service";
 
-export { ControllerStore };
+export { ControllerStore, ServiceStore };
 export { packageInfo } from "./packageInfo";
