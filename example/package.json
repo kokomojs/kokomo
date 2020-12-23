@@ -2,7 +2,7 @@
   "name": "@kokomo/example",
   "version": "0.0.1",
   "scripts": {
-    "start": "DEBUG=kokomo ts-node-dev --respawn src/app.ts"
+    "start": "DEBUG=kokomo:*,@kokomo/router:* ts-node-dev --respawn src/app.ts"
   },
   "devDependencies": {
     "ts-node-dev": "^1.0.0"

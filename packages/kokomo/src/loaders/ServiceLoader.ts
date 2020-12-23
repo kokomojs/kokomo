@@ -5,7 +5,7 @@ import { ServiceStore } from "../store";
 import { inject, loadDir } from "../utils";
 import BaseService, { BaseServiceConstructor } from "../core/BaseService";
 
-const debug = debugCreater("kokomo");
+const debug = debugCreater("kokomo:ServiceLoader");
 export default class ServiceLoader {
   static loadService(filePath: string): void {
     const fileInfo = path.parse(filePath);
@@ -15,7 +15,7 @@ export default class ServiceLoader {
       const clazz: BaseServiceConstructor = inject.default(filePath);
 
       if (clazz && clazz.prototype && clazz.prototype instanceof BaseService) {
-        debug(`[Service] ======> load ${clazzName}.service.ts`);
+        debug(`[Service] ===> load ${clazzName}.service.ts`);
         ServiceStore.setService(clazzName, clazz);
       }
     }

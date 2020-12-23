@@ -1,11 +1,11 @@
+import debugCreater from "debug";
 import { ControllerStore } from "../store";
 import { isString, isObject } from "../utils";
 import { RequestMethod } from "../config";
 
-declare interface PathParamterObject {
-  value: string | string[];
-  method: string | string[];
-}
+import type { PathParamterObject } from "../types";
+
+const debug = debugCreater("kokomo:@Path");
 /**
  * 路由装饰器
  * 可以装饰 class，作为根路由，只装饰 class 不生效，必须和 method 装饰配合使用
@@ -33,6 +33,7 @@ export function Path(...args: string[] | PathParamterObject[]) {
       if (rootPath === "/") {
         throw new Error(`The root path cannot be "/", now is "${rootPath}"!`);
       }
+      debug(`[@Path] ===> find class decorator @Path("${rootPath}")`);
       return ControllerStore.setController(props[0], null, { rootPath: rootPath });
     }
     // 类方法
@@ -62,6 +63,7 @@ export function Path(...args: string[] | PathParamterObject[]) {
     if (values.length > 0) {
       values.forEach(p => {
         if (!isString(p) || !p.startsWith("/")) throw new Error(`Path must be string start with "/", now is "${p}"!`);
+        debug(`[@Path] ===> find method decorator @Path("${p}")`);
         ControllerStore.setController(target.constructor, methodName, { path: p, methodTypes });
       });
     } else {
@@ -96,6 +98,7 @@ export function GET(...args: string[]) {
     if (!isString(methodName)) return;
     if (pathValues.length > 0) {
       for (const path of pathValues) {
+        debug(`[@GET] ===> find method decorator @GET("${path}")`);
         ControllerStore.setController(target.constructor, methodName, { path, methodTypes: [RequestMethod.GET] });
       }
     }
@@ -129,6 +132,7 @@ export function POST(...args: string[]) {
     if (!isString(methodName)) return;
     if (pathValues.length > 0) {
       for (const path of pathValues) {
+        debug(`[@POST] ===> find method decorator @POST("${path}")`);
         ControllerStore.setController(target.constructor, methodName, { path, methodTypes: [RequestMethod.POST] });
       }
     }

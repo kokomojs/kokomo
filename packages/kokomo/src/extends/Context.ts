@@ -1,44 +1,41 @@
 import { isString, isObject } from "../utils";
 
-import type { Context as KoaContext } from "koa";
 import type { BaseContext, KokomoContext } from "../types";
 
-export const Context: ThisType<BaseContext & KoaContext> = {
-  send(val: string | Buffer, status?: number) {
+export const Context: BaseContext = {
+  send(this: KokomoContext, val: string | Buffer, status?: number): void {
     if (status) this.status = status;
     this.body = val;
   },
 
-  json(data: Record<string, unknown>) {
+  json(this: KokomoContext, data: Record<string, unknown>): void {
     this.type = "application/json";
     this.body = data;
   },
 
   get userAgent() {
-    return this.header["user-agent"];
+    return (this as KokomoContext).header["user-agent"];
   },
 
   param: {},
 
-  setHeader(name: string | { [key: string]: string }, value?: string | string[]): void {
-    const ctx = this as KokomoContext;
-
-    if (ctx.res.headersSent) {
-      console.error(new Error(`Cannot set headers after they are sent to the client, url: ${ctx.url}`));
+  setHeader(this: KokomoContext, name: string | { [key: string]: string }, value?: string | string[]): void {
+    if (this.res.headersSent) {
+      console.error(new Error(`Cannot set headers after they are sent to the client, url: ${this.url}`));
 
       return;
     }
 
     if (isString(name) && value !== undefined) {
-      ctx.set(name, value);
+      this.set(name, value);
     }
 
     if (isObject(name)) {
-      ctx.set(name);
+      this.set(name);
     }
   },
 
-  getHeader(name: string | any): any {
+  getHeader(this: KokomoContext, name: string | any): any {
     return this.header[name.toLowerCase()];
   },
 };

@@ -1,9 +1,12 @@
 import FindMyWay from "find-my-way";
+import debugCreater from "debug";
 import { replaceTailSlash } from "./helper";
 
 import type { Context, Next, Middleware } from "koa";
 import type { Instance, Config, HTTPVersion, HTTPMethod } from "find-my-way";
 import type { RouterOptions } from "./types/RouterOptions";
+
+const debug = debugCreater("@kokomo/router:index");
 
 class Router<V extends HTTPVersion = HTTPVersion.V1> {
   options: Config<V>;
@@ -68,7 +71,7 @@ function createRouter(options: RouterOptions): Middleware {
         const routePath = replaceTailSlash(rootPath ? rootPath + path : path) || "/";
 
         if (!ALLROUTE.includes(String(routePath))) {
-          console.log(`[${methodTypes ? methodTypes.join() : "ALL"}]:${routePath} ==> ${clazzName}.${methodName}`);
+          debug(`[${methodTypes ? methodTypes.join() : "ALL"}]:${routePath} ===> ${clazzName}.${methodName}`);
           ALLROUTE.push(routePath);
         } else {
           // 注册路由重复
@@ -76,10 +79,9 @@ function createRouter(options: RouterOptions): Middleware {
           Recommended use the Path decorator to annotate the ${clazzName}.controller.ts`);
           continue;
         }
-        if (methodTypes) {
-          for (const method of methodTypes) {
-            router.on(method as HTTPMethod, routePath, callMethod(clazz, methodName));
-          }
+        if (!methodTypes) continue;
+        for (const method of methodTypes) {
+          router.on(method as HTTPMethod, routePath, callMethod(clazz, methodName));
         }
       }
     }
