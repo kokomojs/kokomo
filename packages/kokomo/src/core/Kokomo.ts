@@ -19,34 +19,43 @@ import { Context } from "../extends/Context";
 import { Request } from "../extends/Request";
 import { Response } from "../extends/Response";
 
-import type { Middleware } from "koa";
 import type { KokomoOptions, KokomoContext } from "../types";
 
 let instance = (null as unknown) as Kokomo;
 
 class Kokomo {
-  app: Koa;
+  app: Koa<Koa.DefaultState, KokomoContext>;
   server!: http.Server | https.Server;
   port!: number;
   callback!: (app: Kokomo) => void;
   options: KokomoOptions;
 
-  constructor(options?: KokomoOptions) {
-    this.app = new Koa();
+  constructor(options?: KokomoOptions, app?: Koa<Koa.DefaultState, KokomoContext>) {
+    console.assert(
+      options && options.root,
+      `Kokomo options.root must set value. e.g { root: __dirnames }, now ${JSON.stringify(options)}`
+    );
+    this.app = app || new Koa();
     this.options = merge(options, {});
+
+    const { env } = this.options;
+
+    if (env) process.env.KOKOMO_SERVER_ENV = env;
 
     mixin(false, this.app.context, Context);
     mixin(false, this.app.request, Request);
     mixin(false, this.app.response, Response);
+
+    instance = this;
   }
 
   private load() {
     this.loadConfig();
-    this.loadAspect();
+    this.loadMiddleware();
     this.loadPlugin();
+    this.loadAspect();
     this.loadService();
     this.loadController();
-    this.loadMiddleware();
   }
 
   private loadConfig() {
@@ -87,7 +96,7 @@ class Kokomo {
     }
   }
 
-  use(mw: Middleware): void {
+  use(mw: any): void {
     this.app.use(mw);
   }
 
@@ -103,7 +112,6 @@ class Kokomo {
         controllers: ControllerStore.all(),
       })
     );
-
     const koaCallback = app.callback();
 
     this.server = http.createServer(koaCallback);

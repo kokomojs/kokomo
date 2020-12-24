@@ -1,11 +1,3 @@
-# `router`
+# @kokomo/router
 
-> TODO: description
-
-## Usage
-
-```
-const router = require('router');
-
-// TODO: DEMONSTRATE API
-```
+> A router middleware for kokomo

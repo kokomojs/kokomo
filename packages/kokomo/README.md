@@ -1,11 +1,3 @@
-# `core`
+# kokomo
 
-> TODO: description
-
-## Usage
-
-```
-const core = require('core');
-
-// TODO: DEMONSTRATE API
-```
+> A Node.js Web Framework based on TypeScript

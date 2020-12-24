@@ -1,47 +1,12 @@
-import FindMyWay from "find-my-way";
 import debugCreater from "debug";
 import { replaceTailSlash } from "./helper";
+import Router from "./router";
 
 import type { Context, Next, Middleware } from "koa";
-import type { Instance, Config, HTTPVersion, HTTPMethod } from "find-my-way";
+import type { HTTPMethod } from "find-my-way";
 import type { RouterOptions } from "./types/RouterOptions";
 
 const debug = debugCreater("@kokomo/router:index");
-
-class Router<V extends HTTPVersion = HTTPVersion.V1> {
-  options: Config<V>;
-  router: Instance<V>;
-  constructor(options?: Config<V>) {
-    this.options =
-      options ||
-      (({
-        defaultRoute: (ctx: Context, next: Next) => {
-          ctx.body = "<h1>欢迎光临 404 页面</h1>";
-          next();
-        },
-      } as unknown) as Config<V>);
-    this.router = FindMyWay(this.options);
-  }
-
-  on(method: HTTPMethod, path: string, callback: Middleware): void {
-    this.router.on(method, path, callback as any);
-  }
-
-  routes(): Middleware {
-    return async (ctx: Context, next: Next): Promise<void> => {
-      const handle = this.router.find(ctx.method as HTTPMethod, ctx.path) as any;
-      if (!handle) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        return this.router.defaultRoute && this.router.defaultRoute(ctx, next);
-      }
-      ctx.params = handle.params;
-      ctx.store = handle.store;
-      handle.handler(ctx);
-      await next();
-    };
-  }
-}
 
 function createRouter(options: RouterOptions): Middleware {
   const { config, controllers } = options;
@@ -82,6 +47,7 @@ function createRouter(options: RouterOptions): Middleware {
         }
         if (!methodTypes) continue;
         for (const method of methodTypes) {
+          // 根据@Path，注册路由
           router.on(method as HTTPMethod, routePath, callMethod(clazz, methodName));
         }
       }
@@ -104,7 +70,5 @@ function callMethod(clazz: any, methodName: string) {
     await Promise.resolve(Reflect.apply(method, instance, [ctx, next]));
   };
 }
-
-export default Router;
 
 export { createRouter };

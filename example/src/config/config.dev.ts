@@ -5,26 +5,26 @@ export default {
     {
       path: "timer.ts",
     },
-    // {
-    //   pkg: "koa2-cors",
-    //   options: {
-    //     origin: function (ctx: any) {
-    //       return ctx.get("Origin");
-    //     },
-    //     credentials: true,
-    //   },
-    // },
-    // {
-    //   pkg: "koa-views",
-    //   options: [
-    //     path.join(__dirname, "./../view"),
-    //     {
-    //       map: {
-    //         html: "ejs",
-    //       },
-    //     },
-    //   ],
-    // },
+    {
+      pkg: "koa2-cors",
+      options: {
+        origin: function (ctx: any) {
+          return ctx.get("Origin");
+        },
+        credentials: true,
+      },
+    },
+    {
+      pkg: "koa-views",
+      options: [
+        path.join(__dirname, "./../view"),
+        {
+          map: {
+            html: "ejs",
+          },
+        },
+      ],
+    },
   ],
   plugins: [
     {
