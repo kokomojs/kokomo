@@ -6,8 +6,10 @@ import { createRouter } from "@kokomo/router";
 
 import { merge, mixin } from "../utils";
 import { ControllerStore, packageInfo } from "../store";
+
 import ServiceLoader from "../loaders/ServiceLoader";
 import ControllerLoader from "../loaders/ControllerLoader";
+import AspectLoader from "../loaders/AspectLoader";
 
 import { Context } from "../extends/Context";
 import { Request } from "../extends/Request";
@@ -43,7 +45,7 @@ class Kokomo {
   }
 
   private loadAspect() {
-    // TODO
+    AspectLoader.loadAspectDir(path.resolve(this.options.root, "aspects"));
   }
   private loadConfig() {
     // TODO

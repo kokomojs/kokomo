@@ -10,7 +10,7 @@ const debug = debugCreater("kokomo:@Service");
  * @service 注入 service
  */
 export function Service(service: string | BaseServiceConstructor): any {
-  return (target: any, property: string, desc: PropertyDescriptor): PropertyDescriptor => {
+  return (target: BaseController, property: string, desc: PropertyDescriptor): PropertyDescriptor => {
     const serviceName = isString(service) ? service : service.name;
     if (!(target instanceof BaseController) || !isUndefined(desc)) {
       throw new Error(
@@ -23,7 +23,7 @@ export function Service(service: string | BaseServiceConstructor): any {
         const serviceClass = isString(service) ? ServiceStore.getService(service) : service;
 
         if (!serviceClass) throw new Error(`Please check ${service}.service.ts is exists and extends BaseService.`);
-
+        // 实例化 Service
         return Reflect.construct(serviceClass, [this.ctx]);
       },
       configurable: false,

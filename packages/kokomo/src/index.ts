@@ -9,6 +9,7 @@ export { Kokomo, BaseService, BaseController, BaseControllerConstructor };
 
 export { Path, GET, POST } from "./decorators/Path";
 export { Service } from "./decorators/Service";
+export { Aspect } from "./decorators/Aspect";
 
-export { ClazzInfo, KokomoContext, KokomoRequest, KokomoResponse } from "./types";
+export { ClazzInfo, KokomoContext, KokomoRequest, KokomoResponse, KokomoAspect } from "./types";
 export { Next };
