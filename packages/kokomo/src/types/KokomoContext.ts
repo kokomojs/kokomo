@@ -26,7 +26,12 @@ export interface BaseContext {
   /**
    * 路由参数
    */
-  param: any;
+  param: Record<string, any>;
+
+  /**
+   * 插件
+   */
+  plugins: Record<string, any>;
 
   /**
    * 设置 header

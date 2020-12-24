@@ -2,10 +2,15 @@
   "name": "@kokomo/example",
   "version": "0.0.1",
   "scripts": {
-    "start": "DEBUG=kokomo:*,@kokomo/router:* ts-node-dev --respawn src/app.ts"
+    "start": "DEBUG=kokomo:*,@kokomo/router:* KOKOMO_SERVER_ENV=dev ts-node-dev --respawn src/app.ts"
   },
   "devDependencies": {
+    "@types/koa2-cors": "^2.0.1",
     "ts-node-dev": "^1.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "koa-views": "^7.0.0",
+    "koa2-cors": "^2.0.6"
+  }
 }

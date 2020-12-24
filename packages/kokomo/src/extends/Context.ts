@@ -18,7 +18,7 @@ export const Context: BaseContext = {
   },
 
   param: {},
-
+  plugins: {},
   setHeader(this: KokomoContext, name: string | { [key: string]: string }, value?: string | string[]): void {
     if (this.res.headersSent) {
       console.error(new Error(`Cannot set headers after they are sent to the client, url: ${this.url}`));

@@ -7,7 +7,7 @@
     "allowJs": true,
     "sourceMap": false,
     "declaration": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "emitDecoratorMetadata": true,

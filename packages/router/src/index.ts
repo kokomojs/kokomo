@@ -28,7 +28,7 @@ class Router<V extends HTTPVersion = HTTPVersion.V1> {
   }
 
   routes(): Middleware {
-    return (ctx: Context, next: Next): void => {
+    return async (ctx: Context, next: Next): Promise<void> => {
       const handle = this.router.find(ctx.method as HTTPMethod, ctx.path) as any;
       if (!handle) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -37,7 +37,8 @@ class Router<V extends HTTPVersion = HTTPVersion.V1> {
       }
       ctx.params = handle.params;
       ctx.store = handle.store;
-      return handle.handler(ctx, next);
+      handle.handler(ctx);
+      await next();
     };
   }
 }
@@ -94,6 +95,7 @@ function createRouter(options: RouterOptions): Middleware {
  */
 function callMethod(clazz: any, methodName: string) {
   return async (ctx: Context, next: Next) => {
+    // 实例化 Controller
     const instance = Reflect.construct(clazz, [ctx]);
     const method = Reflect.get(instance, methodName);
 

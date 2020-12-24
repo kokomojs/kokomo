@@ -15,7 +15,7 @@ export default class ServiceLoader {
       const clazz: BaseServiceConstructor = inject.default(filePath);
 
       if (clazz && clazz.prototype && clazz.prototype instanceof BaseService) {
-        debug(`[Service] ===> load ${clazzName}.service.ts`);
+        debug(`[ServiceLoader] ===> load ${clazzName}.service.ts`);
         ServiceStore.setService(clazzName, clazz);
       }
     }

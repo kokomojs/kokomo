@@ -9,8 +9,12 @@ class BaseController {
     this.req = req;
     this.res = res;
   }
-  get param() {
+  get param(): Record<string, any> {
     return this.ctx.param;
+  }
+
+  get plugins(): Record<string, any> {
+    return this.ctx.plugins;
   }
 
   setHeader(name: string | any, value: string | string[]): void {

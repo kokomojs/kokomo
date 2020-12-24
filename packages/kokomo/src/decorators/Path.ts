@@ -71,6 +71,7 @@ export function Path(...args: string[] | PathParamterObject[]) {
     }
   };
 }
+
 /**
  * GET方法路由装饰器
  * 装饰 method，没有根路由的时候直接作为路由使用，有根路由的时候和根路由组合使用

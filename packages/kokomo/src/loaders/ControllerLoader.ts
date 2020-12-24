@@ -14,7 +14,7 @@ export default class ControllerLoader {
       const clazz = inject.default(filePath);
 
       if (clazz && clazz.prototype && clazz.prototype instanceof BaseController) {
-        debug(`[Controller] ===> load ${clazzName}.controller.ts`);
+        debug(`[ControllerLoader] ===> load ${clazzName}.controller.ts`);
         ControllerStore.setController(clazz, null, { clazzName });
       }
     }

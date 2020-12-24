@@ -1,11 +1,11 @@
-import { BaseController, GET, Aspect } from "kokomo";
-
+import { BaseController, GET } from "kokomo";
+import type { KokomoContext, Next } from "kokomo";
 class HomeController extends BaseController {
-  @Aspect.before("test2")
   @GET("/")
-  index(): void {
-    console.log(111);
+  async index(ctx: KokomoContext, next: Next): Promise<void> {
+    console.log(this.plugins.now());
     this.ctx.body = "<h1> hello, world1 </h1>";
+    await next();
   }
 }
 export default HomeController;
