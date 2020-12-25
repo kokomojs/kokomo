@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "lib",
     "module": "commonjs",
-    "types": ["node"],
+    "types": ["node", "jest"],
     "lib": ["ESNext","DOM"]
   },
   "include": ["src"],

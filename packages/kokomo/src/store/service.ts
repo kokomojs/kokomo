@@ -1,6 +1,6 @@
 import type { BaseServiceConstructor } from "../core/BaseService";
 
-export const ServiceMap: Map<string, BaseServiceConstructor> = new Map();
+const ServiceMap: Map<string, BaseServiceConstructor> = new Map();
 
 function setService(serviceName: string, clazz: BaseServiceConstructor): void {
   ServiceMap.set(serviceName, clazz);
@@ -8,8 +8,12 @@ function setService(serviceName: string, clazz: BaseServiceConstructor): void {
 function getService(serviceName: string): BaseServiceConstructor {
   return ServiceMap.get(serviceName)!;
 }
-
+function clear(): void {
+  ServiceMap.clear();
+}
 export default {
   setService,
   getService,
+  clear,
+  store: ServiceMap,
 };

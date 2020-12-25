@@ -115,7 +115,7 @@ class Kokomo {
             res.end();
           },
         },
-        controllers: ControllerStore.all(),
+        controllers: ControllerStore.values(),
       })
     );
     const koaCallback = app.callback();

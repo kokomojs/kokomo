@@ -60,11 +60,17 @@ function getController(clazz: BaseControllerConstructor): ClazzInfo {
   return ControllerMap.get(clazz) as ClazzInfo;
 }
 
-function all(): ClazzInfo[] {
+function values(): ClazzInfo[] {
   return Array.from(ControllerMap.values());
+}
+
+function clear(): void {
+  ControllerMap.clear();
 }
 export default {
   setController,
   getController,
-  all,
+  clear,
+  values,
+  store: ControllerMap,
 };

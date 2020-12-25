@@ -21,8 +21,7 @@ export default class ControllerLoader {
   }
   static loadControllerDir(dirPath: string): void {
     if (!fs.existsSync(dirPath)) {
-      console.warn(`controller file path is not exists, path:${dirPath}`);
-
+      console.warn(`controllers file path is not exists, path:${dirPath}`);
       return;
     }
     loadDir(dirPath, ControllerLoader.loadController);
