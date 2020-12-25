@@ -8,7 +8,11 @@ const ControllerMap = new Map<BaseControllerConstructor, ClazzInfo>();
  * @param methodName controller method name
  * @param info controller info
  */
-function setController(clazz: BaseControllerConstructor, methodName: string | null, info: ControllerInfo): void {
+function setController(
+  clazz: BaseControllerConstructor,
+  methodName: string | symbol | null,
+  info: ControllerInfo
+): void {
   const clazzInfo = ControllerMap.get(clazz) || ({} as ClazzInfo);
 
   const { clazzName, rootPath, path, methodTypes = [], inside, argProps, argIndex, argDecorator } = info;

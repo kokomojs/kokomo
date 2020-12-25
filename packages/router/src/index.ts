@@ -48,7 +48,7 @@ function createRouter(options: RouterOptions): Middleware {
         if (!methodTypes) continue;
         for (const method of methodTypes) {
           // 根据@Path，注册路由
-          router.on(method as HTTPMethod, routePath, callMethod(clazz, methodName));
+          router.on(method as HTTPMethod, routePath, callMethod(controller, methodName));
         }
       }
     }
@@ -59,15 +59,26 @@ function createRouter(options: RouterOptions): Middleware {
 /**
  * 调用方法
  */
-function callMethod(clazz: any, methodName: string) {
+function callMethod(clazzInfo: any, methodName: string) {
   return async (ctx: Context, next: Next) => {
+    if (!clazzInfo) {
+      await next();
+      return;
+    }
+    const { clazz, methodMap = new Map() } = clazzInfo;
+    const { args: argArr = [] } = methodMap.get(methodName) || {};
     // 实例化 Controller
     const instance = Reflect.construct(clazz, [ctx]);
     const method = Reflect.get(instance, methodName);
 
     if (typeof method !== "function") return next();
-
-    await Promise.resolve(Reflect.apply(method, instance, [ctx, next]));
+    // 处理 parameter decorator
+    const args = [];
+    for (const { argDecorator, argProps, argIndex } of argArr) {
+      const argVal = await Promise.resolve(argDecorator(ctx, ...argProps));
+      args[argIndex] = argVal;
+    }
+    await Promise.resolve(Reflect.apply(method, instance, args));
   };
 }
 

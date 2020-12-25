@@ -9,8 +9,8 @@ class BaseController {
     this.req = req;
     this.res = res;
   }
-  get param(): Record<string, any> {
-    return this.ctx.param;
+  get params(): Record<string, any> {
+    return this.ctx.params;
   }
 
   get plugins(): Record<string, any> {

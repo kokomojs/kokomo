@@ -109,6 +109,12 @@ class Kokomo {
     // 注册 router 中间件
     this.use(
       createRouter({
+        config: {
+          defaultRoute(req, res) {
+            res.statusCode = 404;
+            res.end();
+          },
+        },
         controllers: ControllerStore.all(),
       })
     );

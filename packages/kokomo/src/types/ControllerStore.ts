@@ -2,7 +2,7 @@ export declare interface ClazzInfo {
   clazz?: any;
   name: string;
   path: string;
-  methodMap: Map<string, MethodInfo>;
+  methodMap: Map<string | symbol, MethodInfo>;
 }
 
 export declare interface MethodInfo {

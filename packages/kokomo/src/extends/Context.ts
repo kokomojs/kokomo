@@ -17,7 +17,7 @@ export const Context: BaseContext = {
     return (this as KokomoContext).header["user-agent"];
   },
 
-  param: {},
+  params: {},
   plugins: {},
   setHeader(this: KokomoContext, name: string | { [key: string]: string }, value?: string | string[]): void {
     if (this.res.headersSent) {

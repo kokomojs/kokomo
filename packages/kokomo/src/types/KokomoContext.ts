@@ -26,7 +26,7 @@ export interface BaseContext {
   /**
    * 路由参数
    */
-  param: Record<string, any>;
+  params: Record<string, any>;
 
   /**
    * 插件
