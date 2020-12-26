@@ -68,9 +68,9 @@ function clear(): void {
   ControllerMap.clear();
 }
 export default {
+  store: ControllerMap,
   setController,
   getController,
   clear,
   values,
-  store: ControllerMap,
 };

@@ -11,7 +11,7 @@ const debug = debugCreater("kokomo:ConfigLoader");
 export default class ConfigLoader {
   static loadConfig(filePath: string): void {
     const fileInfo = path.parse(filePath);
-    const [type, configName, ...suffix] = fileInfo.name.split(".");
+    const [configName, type, ...suffix] = fileInfo.name.split(".");
 
     if (suffix.length === 0 && type === "config") {
       const fileConfig: KokomoConfig = inject.default(filePath);

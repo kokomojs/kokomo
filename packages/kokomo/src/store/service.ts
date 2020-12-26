@@ -12,8 +12,8 @@ function clear(): void {
   ServiceMap.clear();
 }
 export default {
+  store: ServiceMap,
   setService,
   getService,
   clear,
-  store: ServiceMap,
 };

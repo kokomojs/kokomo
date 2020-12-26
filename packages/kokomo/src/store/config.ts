@@ -8,8 +8,12 @@ function setConfig(configName: string, config: KokomoConfig): void {
 function getConfig(configName: string): KokomoConfig {
   return ConfigMap.get(configName)!;
 }
-
+function clear(): void {
+  ConfigMap.clear();
+}
 export default {
+  store: ConfigMap,
   setConfig,
   getConfig,
+  clear,
 };

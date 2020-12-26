@@ -3,6 +3,7 @@ import { AspectStore } from "../store";
 import { AspectNotice } from "../config";
 import type { KokomoAspect } from "../types";
 import type { BaseControllerConstructor } from "../core/BaseController";
+
 export function aspectHelper(aspect: string | KokomoAspect, notices: AspectNotice[]): any {
   const aspectClazz = AspectStore.getAspect(aspect);
 

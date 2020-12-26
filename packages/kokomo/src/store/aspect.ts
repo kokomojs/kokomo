@@ -8,8 +8,12 @@ function setAspect(AspectName: string | KokomoAspect, AspectClazz: KokomoAspect)
 function getAspect(AspectName: string | KokomoAspect): KokomoAspect {
   return AspectMap.get(AspectName)!;
 }
-
+function clear(): void {
+  AspectMap.clear();
+}
 export default {
+  store: AspectMap,
   setAspect,
   getAspect,
+  clear,
 };

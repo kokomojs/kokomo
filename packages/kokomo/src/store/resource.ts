@@ -8,8 +8,13 @@ function setResourceClazz(resourceName: string, resource: { new (...args: any[])
 function getResourceClazz(resourceName: string): ResourceClazzMapValue {
   return ResourceClazzMap.get(resourceName)!;
 }
+function clear(): void {
+  ResourceClazzMap.clear();
+}
 
 export default {
+  store: ResourceClazzMap,
   setResourceClazz,
   getResourceClazz,
+  clear,
 };
